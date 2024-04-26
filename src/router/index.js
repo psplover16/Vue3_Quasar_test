@@ -1,14 +1,15 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
+import { getToken } from "@/utils/cookie.js";
 import index1 from "../views/index1.vue";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
       name: "home",
       component: index1,
-      redirect:"/AppFormA",
+      redirect: "/AppFormA",
       children: [
         {
           path: "/AppFormA",
@@ -25,5 +26,16 @@ const router = createRouter({
 
   ],
 });
-
+router.beforeEach((to, from) => {
+  // 路由跳轉前觸發
+  if (to.meta.auth) {
+    // 檢查cookuie
+    console.log(from.name);
+    console.log(to);
+    if (!getToken()) {
+      console.log(from.name);
+      return false;
+    }
+  }
+});
 export default router;

@@ -6,12 +6,8 @@
         <tr>
           <th colspan="5">
             <div class="row no-wrap items-center">
-              <q-img
-                style="width: 70px"
-                :ratio="1"
-                class="rounded-borders"
-                src="https://cdn.quasar.dev/img/donuts.png"
-              />
+              <q-img style="width: 70px" :ratio="1" class="rounded-borders"
+                src="https://cdn.quasar.dev/img/donuts.png" />
 
               <div class="text-h4 q-ml-md text-white">Treats</div>
             </div>
@@ -63,5 +59,26 @@
         </tr>
       </tbody>
     </q-markup-table>
+    <div class="aa"></div>
+    <div>
+      {{ useCounterStore().count }}
+    </div>
+    <q-btn color="primary" label="增加pinia" @click="addCount" />
   </div>
 </template>
+
+<script setup>
+import { useCounterStore } from "@/stores/counter";
+
+const addCount = ()=>{
+  // useCounterStore().count++;
+  useCounterStore().increment();
+}
+</script>
+
+
+<style scoped>
+.aa {
+  height: 50px;
+}
+</style>
