@@ -1,6 +1,7 @@
 <template>
   <div class="q-pa-md">
-    <q-markup-table flat bordered>
+    <q-markup-table bordered>
+      <!-- flat  -->
       <thead class="bg-teal">
         <tr>
           <th colspan="5">

@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <!-- <header>
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
 
@@ -8,14 +8,14 @@
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
-  </header>
+  </header> -->
 
   <RouterView />
 </template>
 
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/layout1.vue";
+// import HelloWorld from "./components/layout1.vue";
 </script>
 
 <style scoped lang="scss">

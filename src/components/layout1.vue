@@ -10,13 +10,7 @@
           </q-avatar>
           Title
         </q-toolbar-title>
-        <q-btn
-          flat
-          round
-          dense
-          :icon="sceneLightMode"
-          @click="changeSceneMode"
-        />
+        <q-btn flat round dense :icon="sceneLightMode" @click="changeSceneMode" />
         <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
       </q-toolbar>
 
@@ -30,13 +24,7 @@
       </q-tabs>
     </q-header>
 
-    <q-drawer
-      show-if-above
-      v-model="leftDrawerOpen"
-      side="left"
-      behavior="desktop"
-      bordered
-    >
+    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
       <!-- drawer content -->
     </q-drawer>
 
@@ -44,9 +32,18 @@
       <!-- drawer content -->
     </q-drawer>
 
+
+
+
+
+    
+
     <q-page-container>
       <!-- <router-view /> -->
-      <component :is="tabs[tab]"></component>
+      <!-- <keep-alive>
+        <component :is="tabs[tab]"></component>
+      </keep-alive> -->
+      <router-view />
     </q-page-container>
 
     <q-footer elevated class="bg-grey-8 text-white">
@@ -63,9 +60,11 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
+
 import AppFormA from "./formA.vue";
 import markupTable from "./markupTable.vue";
+
 const leftDrawerOpen = ref(false);
 const rightDrawerOpen = ref(false);
 
@@ -76,12 +75,23 @@ const toggleRightDrawer = () => {
   rightDrawerOpen.value = !rightDrawerOpen.value;
 };
 
-const tab = ref("markupTable");
+// 動態組件寫法
+const tab = ref();
 const tabs = {
   forma: AppFormA,
-  markupTable: markupTable,
+  markupTable: markupTable
 };
 
+// router寫法
+import { useRouter } from "vue-router";
+const router = useRouter();
+watch(tab, (newValue, oldValue) => {
+  console.log(`count 变为 ${newValue}`);
+  if(newValue=='forma'){
+    newValue="AppFormA"
+  }
+  router.push("/" + newValue)
+});
 //
 import { useQuasar } from "quasar";
 const $q = useQuasar();
@@ -91,7 +101,7 @@ const sceneLightMode = ref("light_mode");
 const changeSceneMode = () => {
   sceneLightMode.value =
     sceneLightMode.value == "light_mode" ? "dark_mode" : "light_mode";
-    console.log(sceneLightMode.value)
+  console.log(sceneLightMode.value)
   // 查询暗色模式是否被开启
   console.log($q.dark.isActive); // true, false
   // 查询配置信息

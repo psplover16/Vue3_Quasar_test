@@ -8,12 +8,21 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: index1,
+      redirect:"/AppFormA",
+      children: [
+        {
+          path: "/AppFormA",
+          name: "AppFormA",
+          component: () => import("@/components/formA.vue"),
+        },
+        {
+          path: "/markupTable",
+          name: "markupTable",
+          component: () => import("@/components/markupTable.vue"),
+        },
+      ]
     },
-    {
-      path: "/about",
-      name: "about",
-      component: () => import("../views/index1.vue"),
-    },
+
   ],
 });
 
